@@ -1,35 +1,29 @@
 import React from "react";
 import styled, { css } from "styled-components";
-
-const StyledButton = styled.button`
-    padding: 1rem;
-    font-size: 15px;
-    outline: none;
-    color: ${({ primary }) => (primary ? "yellow" : "#fff")};
-    border: none;
-    background-color: gray;
-    margin: auto;
-    margin-bottom: 10px;
-    width: 250px;
-    ${({ primary }) =>
-        primary &&
-        css`
-            color: white;
-            background-color: palevioletred;
-        `}
-`;
+import { StyledButton, OuterWrapper } from "./styled";
 
 const SuperButton = styled(StyledButton)`
     font-size: 2.5rem;
-    color: yellow;
+    color: black;
+    &:hover {
+        color: ${(props) => props.theme.colors.main};
+    }
+    background-color: ${(props) => props.theme.colors.lighter};
+    @media ${({ theme }) => theme.mediaQueries.below768} {
+        font-size: 1.4rem;
+        color: white;
+        background-color: red;
+    }
 `;
 
-const Button = ({ primary, children }) => {
+const Button = ({ primary, children, margin }) => {
     return (
-        <>
-            <StyledButton primary={primary}>{children}</StyledButton>
-            <SuperButton>{children}</SuperButton>
-        </>
+        <OuterWrapper>
+            <StyledButton margin={margin} primary={primary}>
+                {children}
+            </StyledButton>
+            <SuperButton>{children} test</SuperButton>
+        </OuterWrapper>
     );
 };
 
